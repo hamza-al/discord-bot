@@ -24,7 +24,7 @@ Note: Python 3.x must be installed on your machine.
    {"users":[]}
    ```
 3. Follow the steps [here](https://discordpy.readthedocs.io/en/stable/discord.html) to add the bot to discord.
-4. Add the token obtained in step 3 in thr *bot.py* file in place of the  ```tokenNew``` variable
+4. Add the token obtained in step 3 in the *bot.py* file in place of the  ```tokenNew``` variable
 5. Right click on the main channel of the server and copy the channel ID
 6. Add the ID obtained in step 5 in place of the ```channelIdOld``` variable
 
