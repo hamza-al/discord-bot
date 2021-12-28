@@ -2,9 +2,7 @@
 from os import name
 import re
 import discord
-from discord import channel
 from discord.ext import commands
-from discord.ext.commands.errors import ArgumentParsingError
 import random
 from findX import findX
 import gif

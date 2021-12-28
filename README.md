@@ -9,10 +9,12 @@ To use the bot, use the  package manager [pip](https://pip.pypa.io/en/stable/) t
 ### On macOS/linux: 
 ```bash
 pip3 install discord.py
+pip3 install requests
 ```
 ### On Windows: 
 ```bash
 pip install discord.py
+pip install requests
 ```
 Note: Python 3.x must be installed on your machine.
 
