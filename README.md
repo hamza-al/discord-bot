@@ -41,7 +41,8 @@ To make the urban dictionary functionality work, follow the instructions [here](
 
 ### Tenor GIF functions
 To make the gif finding functionality work, follow the instructions [here](https://tenor.com/gifapi/documentation#quickstart) to obtain the api key required, and place than in plac eof the ```apikeygif``` variable
-## Usage
+
+## Start up
 
 To run the bot, use the following commands in the **discord-bot** directory:
 ### On macOS/linux (In Terminal): 
@@ -53,4 +54,7 @@ python3 bot.py
 python bot.py
 ```
 Note: Python 3.x must be installed on your machine.
+
+## Usage:
+Once the bot is online: Use the ">help" to get the list of commands supported by the bot. Any command must be preceeded by the ">" symbol.
 

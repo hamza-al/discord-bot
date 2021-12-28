@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands
 import random
 from findX import findX
-import gif
+from gif import getGIF
 import random
 from urban import urbanFind
 from userFuncs import *
@@ -26,9 +26,9 @@ def isGIF(inp):
 
 
 def requestGIF(inp):
-    newString = inp[6::]
-    if gif.getGIF(newString) != None:
-        return gif.getGIF(newString)
+    newString = inp
+    if getGIF(newString) != None:
+        return getGIF(newString)
 
 
 def isBatchest(inp):
@@ -81,16 +81,15 @@ async def on_message(message):
             await message.channel.send("<:batchest:906314613312872448> <:batchest:906314613312872448> <:batchest:906314613312872448> <:batchest:906314613312872448>")
         else:
             await message.channel.send(requestGIF("n!gif batchest"))
-    if isGIF(message.content):
-        await message.channel.send(requestGIF(message.content))
-    if message.content.split(' ')[0].lower() == 'calc':
-        await message.channel.send(findX(message.content[5::]))
+    # if isGIF(message.content):
+    #     await message.channel.send(requestGIF(message.content))
+    # if message.content.split(' ')[0].lower() == 'calc':
+    #     await message.channel.send(findX(message.content[5::]))
     if message.content.lower() == "why is my code broken":
         await message.channel.send("Its prolly written in JS")
 
     if message.author.bot:
         return
-
     if message.content.lower() == '?help':
         pass
     elif message.content.lower() == '?addrole':
@@ -98,6 +97,18 @@ async def on_message(message):
     else:
         pass
     await client.process_commands(message)
+
+
+@client.command(name='gif', help='Sends the top Tenor GIF search result of the inputed text')
+async def gif(ctx, *words):
+    print((words))
+    print(' '.join(words))
+    await ctx.channel.send(requestGIF(' '.join(words)))
+
+
+@client.command(name='calc', help="Solves for a variable 'x' in basic linear mathematical equations")
+async def calc(ctx, *formula):
+    await ctx.channel.send(f"x = {findX(' '.join(formula))}")
 
 
 @client.command(
@@ -401,9 +412,9 @@ async def rich(ctx):
 
 
 @client.command(name='urban', help="Shows definition of a word in the urban dictionary")
-async def urban(ctx, name):
+async def urban(ctx, *names):
     embd = discord.Embed(
-        title=f'{name}:', description=urbanFind(name)['definition'])
+        title=f'{names}:', description=urbanFind(' '.join(names))['definition'])
     await ctx.send(embed=embd)
 
 
