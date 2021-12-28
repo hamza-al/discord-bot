@@ -14,7 +14,7 @@ from userFuncs import *
 from paragraphs import paragraphs
 import time
 from tokens import *
-from datab import mydb
+
 
 help_command = commands.DefaultHelpCommand(
     no_category='Commands'
@@ -69,7 +69,6 @@ async def test(ctx, arg):
 async def on_ready():
     print('Server moderator is now active')
     await client.get_channel(channelIdnew).send("CMD is now online")
-    print(mydb)
 
 
 @client.event
