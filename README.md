@@ -36,6 +36,11 @@ Note: If you are using a Windows based machine, download and install git from [h
 6. Right click on the main channel of the server and copy the channel ID
 7. Add the ID obtained in step 5 in place of the ```channelIdOld``` variable
 
+### Urban dictionary functions
+To make the urban dictionary functionality work, follow the instructions [here](https://dev.to/nhighleysalongenius/comment/epgk) to obtain the api key required, and place than in plac eof the ```urbankey``` variable
+
+### Tenor GIF functions
+To make the gif finding functionality work, follow the instructions [here](https://tenor.com/gifapi/documentation#quickstart) to obtain the api key required, and place than in plac eof the ```apikeygif``` variable
 ## Usage
 
 To run the bot, use the following commands in the **discord-bot** directory:
