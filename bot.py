@@ -80,11 +80,7 @@ async def on_message(message):
         if x < 0.5:
             await message.channel.send("<:batchest:906314613312872448> <:batchest:906314613312872448> <:batchest:906314613312872448> <:batchest:906314613312872448>")
         else:
-            await message.channel.send(requestGIF("n!gif batchest"))
-    # if isGIF(message.content):
-    #     await message.channel.send(requestGIF(message.content))
-    # if message.content.split(' ')[0].lower() == 'calc':
-    #     await message.channel.send(findX(message.content[5::]))
+            await message.channel.send(requestGIF("batchest"))
     if message.content.lower() == "why is my code broken":
         await message.channel.send("Its prolly written in JS")
 

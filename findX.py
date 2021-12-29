@@ -71,7 +71,7 @@ def findX(equation: str):
                                 leftVal += float(left[i+1])
                     if left[i] == '-':
                         if left[i+1] == 'x':
-                            leftX += 1
+                            leftX -= 1
                         else:
                             leftVal -= float(left[i+1])
                 if left[0] == 'x' and left[1] in "-+":
