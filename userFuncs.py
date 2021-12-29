@@ -483,4 +483,39 @@ def bankHelp(userId, amount):
 
 
 def donate(user1, user2, amount):
-    pass
+    a_file = open("users.json", "r")
+    json_object = json.load(a_file)
+    a_file.close()
+    rand = random.uniform(0, 1)
+    fList = False
+    sList = False
+    if amount.isdigit():
+        amount = int(amount)
+        for i in json_object['users']:
+            if i['id'] == user1:
+                fList = True
+                break
+        for i in json_object['users']:
+            if i['id'] == user2:
+                sList = True
+                break
+        if fList == False:
+            json_object["users"].append(
+                {"id": user1, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        if sList == False:
+            json_object["users"].append(
+                {"id": user2, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        for i in json_object['users']:
+            if i['id'] == user1:
+                if amount > i['balance']:
+                    return f'Sorry, you only have ${i["balance"]}'
+                else:
+                    for j in json_object['users']:
+                        if j['id'] == user2:
+                            j['balance'] += amount
+                            i['balance'] -= amount
+                            break
+                break
+    a_file = open("users.json", "w")
+    json.dump(json_object, a_file)
+    a_file.close()
