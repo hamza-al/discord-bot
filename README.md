@@ -1,6 +1,6 @@
-# IDEK
+# Sadness
 
-IDEK is a Minecraft simulation discord bot with an additional random command set completely unrelated to Minecraft.
+Sadness is a Minecraft simulation discord bot with an additional random command set completely unrelated to Minecraft.
 
 ## Requirements
 
@@ -58,3 +58,25 @@ Note: Python 3.x must be installed on your machine.
 ## Usage:
 Once the bot is online: Use the ">help" to get the list of commands supported by the bot. Any command must be preceeded by the ">" symbol.
 
+### Commands:
+Current bot commands are :
+```
+  balance  Shows user's balance  
+  bank     Deposits a given amount of money into a user's hidden stash of ca
+  calc     Solves for a variable 'x' in basic linear mathematical equations
+  coinflip Bets a given amount of money on a simulated coin toss
+  gif      Sends the top Tenor GIF search result of the inputed text
+  help     Shows this message
+  inv      Shows user inventory
+  mine     Mines a given amount of blocks
+  ping     Prints pong back to the channel.
+  prices   Displays the prices of sellable items
+  rich     Displays order of wealth on the server
+  sell     Sells a given amount of items
+  stash    Shows user's hidden stash of money
+  steal    Robs the mentioned users balance
+  store    Sends a given amount of items to the user's vault
+  unvault  Returns given amount of vaulted items to the user's inventory
+  urban    Shows definition of a word in the urban dictionary
+  vault    Shows user's vault
+  wpm      Quick built in typing speed tester
