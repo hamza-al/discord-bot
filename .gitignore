@@ -6,3 +6,4 @@ archives
 __pycache__
 .idea
 datab.py
+.DS_Store
