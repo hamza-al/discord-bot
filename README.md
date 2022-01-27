@@ -80,3 +80,4 @@ Current bot commands are :
   urban    Shows definition of a word in the urban dictionary
   vault    Shows user's vault
   wpm      Quick built in typing speed tester
+   ```

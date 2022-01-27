@@ -486,7 +486,6 @@ def donate(user1, user2, amount):
     a_file = open("users.json", "r")
     json_object = json.load(a_file)
     a_file.close()
-    rand = random.uniform(0, 1)
     fList = False
     sList = False
     if amount.isdigit():

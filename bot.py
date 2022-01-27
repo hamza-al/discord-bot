@@ -1,5 +1,3 @@
-
-from os import name
 import re
 import discord
 from discord.ext import commands
@@ -425,3 +423,7 @@ async def bank(ctx, amount):
     await ctx.send(embed=embd)
 
 client.run(tokenNew)
+
+
+
+x = 12
