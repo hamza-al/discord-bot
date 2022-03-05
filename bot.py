@@ -2,9 +2,11 @@ import re
 import discord
 from discord.ext import commands
 import random
+from art import text2art
 from findX import findX
 from gif import getGIF
 import random
+from lol import lol
 from urban import urbanFind
 from userFuncs import *
 from paragraphs import paragraphs
@@ -64,13 +66,14 @@ async def test(ctx, arg):
 @client.event
 async def on_ready():
     print('Server moderator is now active')
-    await client.get_channel(channelIdnew).send("CMD is now online")
+    # await client.get_channel(channelIdnew).send("CMD is now online")
 
 
 @client.event
 async def on_message(message):
     # if message.author.id == 430892547523608596:
     #     print(message.author)
+    #     await message.channel.send(wack(message.content))
     # if message.author.id == 393614489649676289:
     #     await message.channel.send(wack(message.content))
     if isBatchest(message.content):
@@ -422,8 +425,39 @@ async def bank(ctx, amount):
         embd = discord.Embed(title='Oops', description=transfer)
     await ctx.send(embed=embd)
 
+
+@client.command(name='league', help="Shows base stats about a given champ")
+async def league(ctx, name):
+    info = lol(name)
+    if info != "Invalid champion name":
+        stats = ''
+        for x, y in info.items():
+            stats += f'{x}: {y} \n'
+            embd = discord.Embed(
+                title=f"{info['Name']}'s base stats", description=stats)
+
+    else:
+        stats = "Invalid champion name"
+        embd = discord.Embed(
+            title="Invalid champion name", description='Oops')
+    await ctx.send(embed=embd)
+
+
+@client.command(name='wordle', help="Wordle. On discord.")
+async def wordle(ctx, guess):
+    # TODO: Discord wordle
+    pass
+
+
+@client.command(name='art', help="turns a message into ascii art")
+async def art(ctx, *guess):
+    sentence = ' '.join(guess)
+
+    message = text2art(sentence)
+    message = message.replace('|', 'I')
+    message = message.replace('`', "'")
+    await ctx.message.delete()
+    await ctx.send("`" + message + "`")
+
+
 client.run(tokenNew)
-
-
-
-x = 12

@@ -1,6 +1,17 @@
 import json
 import random
-import re
+
+
+# ------- MINECRAFT FUNCTIONS ---------
+
+
+def newUser(userId):
+    return {"id": userId, "balance": 100, 'inventory': [],
+            'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350, 'guesses': 0}
+
+
+def init_user(users, userId):
+    users.append(newUser(userId))
 
 
 def showBal(userId):
@@ -16,8 +27,9 @@ def showBal(userId):
             else:
                 return f"You have ${i['balance']}"
     if inList == False:
-        json_object['users'].append(
-            {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        # json_object['users'].append(
+        #     {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        init_user(json_object['users'], userId)
         return "You have $100"
 
 
@@ -34,8 +46,9 @@ def showBank(userId):
             else:
                 return f"You have ${i['bank']} in the bank"
     if inList == False:
-        json_object['users'].append(
-            {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        # json_object['users'].append(
+        #     {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        init_user(json_object['users'], userId)
         return "You have no money in the bank"
 
 
@@ -56,8 +69,9 @@ def showInventory(userId):
             break
 
     if inList == False:
-        json_object['users'].append(
-            {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        # json_object['users'].append(
+        #     {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        init_user(json_object['users'], userId)
         return "Sorry, your inventory is empty..."
     else:
         return val
@@ -81,8 +95,9 @@ def showVault(userId):
             break
 
     if inList == False:
-        json_object['users'].append(
-            {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        # json_object['users'].append(
+        #     {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        init_user(json_object['users'], userId)
         return "Sorry, your inventory is empty..."
     else:
         return val
@@ -98,8 +113,9 @@ def newItem(userId, item, count):
             inList = True
             break
     if inList == False:
-        json_object['users'].append(
-            {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        # json_object['users'].append(
+        #     {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        init_user(json_object['users'], userId)
     for i in json_object['users']:
         if i["id"] == userId:
             hasItem = False
@@ -125,9 +141,9 @@ def death(userId):
             inList = True
             break
     if inList == False:
-        json_object["users"].append(
-            {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
-
+        # json_object["users"].append(
+        #     {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        init_user(json_object['users'], userId)
     for i in json_object['users']:
         if i["id"] == userId:
             i["inventory"] = []
@@ -148,8 +164,9 @@ def vault(userId, item, amount: str):
                 inList = True
                 break
         if inList == False:
-            json_object["users"].append(
-                {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+            # json_object["users"].append(
+            #     {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+            init_user(json_object['users'], userId)
             return "Sorry, your inventory is empty."
         else:
             hasItem = False
@@ -243,8 +260,9 @@ def unvault(userId, item, amount):
                 inList = True
                 break
         if inList == False:
-            json_object["users"].append(
-                {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+            # json_object["users"].append(
+            #     {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+            init_user(json_object['users'], userId)
             return "Sorry, your inventory is empty."
         else:
             for i in json_object['users']:
@@ -303,8 +321,9 @@ def sell(userId, item, amount):
                     inList = True
                     break
             if inList == False:
-                json_object["users"].append(
-                    {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+                # json_object["users"].append(
+                #     {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+                init_user(json_object['users'], userId)
                 return "Sorry, your inventory is empty."
             else:
                 hasItem = False
@@ -350,8 +369,9 @@ def coinFlip(userId, guess, amount):
                 inList = True
                 break
         if inList == False:
-            json_object["users"].append(
-                {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+            # json_object["users"].append(
+            #     {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+            init_user(json_object['users'], userId)
         for i in json_object['users']:
             if i["id"] == userId:
                 if amount > i['balance']:
@@ -393,8 +413,9 @@ def robbery(user1, user2):
             sList = True
             break
     if fList == False:
-        json_object["users"].append(
-            {"id": user1, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        # json_object["users"].append(
+        #     {"id": user1, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+        init_user(json_object['users'], user1)
         fList = True
     if fList and sList:
         if rand >= 0.4:
@@ -452,8 +473,9 @@ def bankHelp(userId, amount):
                 inList = True
                 break
         if inList == False:
-            json_object["users"].append(
-                {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+            # json_object["users"].append(
+            #     {"id": userId, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+            init_user(json_object['users'], userId)
         for i in json_object['users']:
             if i['id'] == userId:
                 if amount > i['balance']:
@@ -499,11 +521,13 @@ def donate(user1, user2, amount):
                 sList = True
                 break
         if fList == False:
-            json_object["users"].append(
-                {"id": user1, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+            # json_object["users"].append(
+            #     {"id": user1, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+            init_user(json_object['users'], user1)
         if sList == False:
-            json_object["users"].append(
-                {"id": user2, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+            # json_object["users"].append(
+            #     {"id": user2, "balance": 100, 'inventory': [], 'vault': [], 'vaultCap': 20, "bank": 0, "bankCap": 350})
+            init_user(json_object['users'], user2)
         for i in json_object['users']:
             if i['id'] == user1:
                 if amount > i['balance']:
@@ -515,6 +539,21 @@ def donate(user1, user2, amount):
                             i['balance'] -= amount
                             break
                 break
+    a_file = open("users.json", "w")
+    json.dump(json_object, a_file)
+    a_file.close()
+
+
+# ------- WORDLE FUNCTIONS ---------
+
+
+def wordle_reset():
+    a_file = open("users.json", "r")
+    json_object = json.load(a_file)
+    a_file.close()
+
+    for i in json_object['users']:
+        i['guesses'] = 0
     a_file = open("users.json", "w")
     json.dump(json_object, a_file)
     a_file.close()
