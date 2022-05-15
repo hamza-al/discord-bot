@@ -1,6 +1,8 @@
 import json
 import random
 
+from matplotlib.font_manager import json_dump
+
 
 # ------- MINECRAFT FUNCTIONS ---------
 
@@ -544,16 +546,54 @@ def donate(user1, user2, amount):
     a_file.close()
 
 
-# ------- WORDLE FUNCTIONS ---------
+# ------- ANOTHER DAY ---------
 
-
-def wordle_reset():
-    a_file = open("users.json", "r")
+def another_day():
+    a_file = open("anotherday.json", "r")
     json_object = json.load(a_file)
     a_file.close()
+    json_object['hamza'][0] += 1
+    a_file = open("anotherday.json", "w")
+    json.dump(json_object, a_file)
+    a_file.close()
 
-    for i in json_object['users']:
-        i['guesses'] = 0
-    a_file = open("users.json", "w")
+
+def another_count():
+    a_file = open("anotherday.json", "r")
+    json_object = json.load(a_file)
+    a_file.close()
+    return json_object['hamza'][0]
+
+
+def get_current_player_wordle():
+    a_file = open("currentplayer.json", "r")
+    json_object = json.load(a_file)
+    a_file.close()
+    return json_object[0]
+
+
+def set_current_player_wordle(userId):
+    a_file = open("currentplayer.json", "r")
+    json_object = json.load(a_file)
+    a_file.close()
+    json_object[0] = userId
+    a_file = open("currentplayer.json", "w")
+    json.dump(json_object, a_file)
+    a_file.close()
+
+
+def get_word_wordle():
+    a_file = open("wordle.json", "r")
+    json_object = json.load(a_file)
+    a_file.close()
+    return json_object[0]
+
+
+def set_word_wordle(word):
+    a_file = open("wordle.json", "r")
+    json_object = json.load(a_file)
+    a_file.close()
+    json_object[0] = word
+    a_file = open("wordle.json", "w")
     json.dump(json_object, a_file)
     a_file.close()

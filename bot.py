@@ -1,4 +1,6 @@
+from datetime import date
 import re
+from unicodedata import name
 import discord
 from discord.ext import commands
 import random
@@ -12,7 +14,7 @@ from userFuncs import *
 from paragraphs import paragraphs
 import time
 from tokens import *
-
+from random_word import RandomWords
 
 help_command = commands.DefaultHelpCommand(
     no_category='Commands'
@@ -76,6 +78,8 @@ async def on_message(message):
     #     await message.channel.send(wack(message.content))
     # if message.author.id == 393614489649676289:
     #     await message.channel.send(wack(message.content))
+    if message.content.lower() == 'another day':
+        another_day()
     if isBatchest(message.content):
         x = random.uniform(0, 1)
         if x < 0.5:
@@ -224,7 +228,7 @@ async def mine(ctx, depth: str):
                 newItem(ctx.message.author.id, emerald, emeraldCount)
                 newItem(ctx.message.author.id, cobblestone, depth -
                         ironCount - goldCount - diamondCount - 1)
-                val = f'You a real YRN. You mined {ironCount} iron ore, {goldCount} gold ore, {diamondCount} diamonds, 1 emeralds and {depth - ironCount - goldCount - diamondCount - 1} gravel'
+                val = f'SHEEEESH. You mined {ironCount} iron ore, {goldCount} gold ore, {diamondCount} diamonds, 1 emeralds and {depth - ironCount - goldCount - diamondCount - 1} gravel'
             embed = discord.Embed(
                 title=f"{ctx.message.author.name}'s Mining Session", description=val, color=discord.Color.blue())
             await ctx.channel.send(embed=embed)
@@ -443,12 +447,6 @@ async def league(ctx, name):
     await ctx.send(embed=embd)
 
 
-@client.command(name='wordle', help="Wordle. On discord.")
-async def wordle(ctx, guess):
-    # TODO: Discord wordle
-    pass
-
-
 @client.command(name='art', help="turns a message into ascii art")
 async def art(ctx, *guess):
     sentence = ' '.join(guess)
@@ -458,6 +456,65 @@ async def art(ctx, *guess):
     message = message.replace('`', "'")
     await ctx.message.delete()
     await ctx.send("`" + message + "`")
+
+
+@client.command(name='another', help='Counts how many times okok123 has said "Another day"')
+async def another(ctx, *guess):
+    today = date.today()
+    d2 = today.strftime("%B %d, %Y")
+    embd = discord.Embed(
+        title="Another day count", description=f'As of {d2}, okok123 has said another day {another_count()} times')
+    await ctx.send(embed=embd)
+
+
+@client.command(name='donate', help='Donates a certain amount of moeny to another use')
+async def give(ctx, reciever, amount):
+    users = ctx.message.mentions
+    x = donate(ctx.message.author, users[0].id, amount)
+    if type(x) == str:
+        await ctx.send(embed=discord.Embed(title="Oops", description=x))
+    else:
+        await ctx.send(embed=discord.Embed(title="What a generous soul", description=f"You've donated ${amount} to {users[0].id} "))
+
+
+@client.command(name='wordle', help='Wordle.... but for discord')
+async def wordle(ctx, guess):
+    if len(guess) != 5:
+        await ctx.reply(embed=discord.Embed(
+            title=f'Bossman', description='The word must be 5 letters long'))
+    else:
+        number = get_current_player_wordle()
+        if get_word_wordle() == "":
+            r = RandomWords()
+            word = r.get_random_word(
+                minLength=5, maxLength=5, hasDictionaryDef=True)
+            word = word.lower()
+            set_word_wordle(word)
+        else:
+            word = get_word_wordle()
+        if guess == word:
+            set_word_wordle("")
+            await ctx.send(embed=discord.Embed(title="You win!", description="You guessed the word correctly"))
+            set_current_player_wordle(6)
+        else:
+            if number > 1:
+                reply = ""
+                for i in range(len(guess)):
+                    if word[i] == guess[i]:
+                        reply += '🟩 '
+                    elif guess[i] in word:
+                        reply += '🟨 '
+                    else:
+                        reply += '🟥 '
+                await ctx.reply(embed=discord.Embed(title=f'Guess number {7 - number}', description=reply))
+                number -= 1
+                set_current_player_wordle(number)
+            else:
+                await ctx.reply(embed=discord.Embed(title='You lose:(', description=f"The word was {word} :/"))
+                set_word_wordle("")
+                set_current_player_wordle(6)
+
+        print(word)
 
 
 client.run(tokenNew)
