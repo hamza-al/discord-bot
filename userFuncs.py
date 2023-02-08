@@ -1,8 +1,6 @@
 import json
 import random
 
-from matplotlib.font_manager import json_dump
-
 
 # ------- MINECRAFT FUNCTIONS ---------
 
@@ -564,6 +562,8 @@ def another_count():
     a_file.close()
     return json_object['hamza'][0]
 
+
+# ------- WORDLE ---------
 
 def get_current_player_wordle():
     a_file = open("currentplayer.json", "r")

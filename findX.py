@@ -8,7 +8,7 @@ def findX(equation: str):
                 if i in alphabet:
                     return "Invalid Statement; statement must be an equation or not have variables"
 
-        elif equation.count("=") > 1:
+        elif equation.count("=") != 1:
             return "Invalid equation; equation can only have two sides (one equal sign)"
         else:
             for i in range(len(equation)):
@@ -20,15 +20,34 @@ def findX(equation: str):
                     if i == 0 or i == len(equation) - 1 or equation[i-1] in "*/+-" or equation[i+1] in "*/+-":
                         return "Misplaced equation symbol"
 
-            left = equation.split("=")[0].split(' ')
-            left = [word for word in left if word != '']
-            right = equation.split("=")[1].split(' ')
-            right = [word for word in right if word != '']
+            left1 = equation.split("=")[0].split(' ')
+            left1 = [word for word in left1 if word != '']
+            left = []
+
+            for i in left1:
+                if len(i) == 1 or i.isdigit():
+                    left.append(i)
+                else:
+                    for j in i:
+                        left.append(j)
+
+            right1 = equation.split("=")[1].split(' ')
+            right1 = [word for word in right1 if word != '']
+            right = []
+            for i in right1:
+                if len(i) == 1 or i.isdigit():
+                    right.append(i)
+                else:
+                    for j in i:
+                        right.append(j)
 
             leftVal = 0
             leftX = 0
             rightVal = 0
             rightX = 0
+
+            print(left)
+            print(right)
             if right[0] in "*/+-":
                 return "Misplaced equation symbol"
             if len(left) == 1:
@@ -127,3 +146,6 @@ def findX(equation: str):
             return "What exactly do you want me to do with this information 🤨"
         else:
             return "x can be anything here broski"
+
+
+print(findX('3 + x - x + x * 3 = 90 '))

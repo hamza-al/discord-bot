@@ -80,4 +80,7 @@ Current bot commands are :
   urban    Shows definition of a word in the urban dictionary
   vault    Shows user's vault
   wpm      Quick built in typing speed tester
+  league   Retrieves information about any specified League of Legends champion
+  wordle   Simulated a wordle
+  help     Displays available commands.
    ```

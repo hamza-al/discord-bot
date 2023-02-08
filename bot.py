@@ -1,20 +1,25 @@
-from datetime import date
-import re
-from unicodedata import name
-import discord
-from discord.ext import commands
-import random
-from art import text2art
-from findX import findX
-from gif import getGIF
-import random
-from lol import lol
-from urban import urbanFind
-from userFuncs import *
-from paragraphs import paragraphs
-import time
-from tokens import *
+
+
+from nltk.corpus import words
 from random_word import RandomWords
+from tokens import *
+import time
+from paragraphs import paragraphs
+from userFuncs import *
+from urban import urbanFind
+from lol import lol
+from gif import getGIF
+from findX import findX
+from art import text2art
+import random
+from discord.ext import commands
+import discord
+from unicodedata import name
+import re
+from datetime import date
+from xo import Board
+import nltk
+nltk.download('words')
 
 help_command = commands.DefaultHelpCommand(
     no_category='Commands'
@@ -49,11 +54,15 @@ def wack(x):
     return new
 
 
+intents = discord.Intents.all()
 client = commands.Bot(command_prefix='>',
-                      help_command=help_command)
+                      help_command=help_command, intents=intents)
 
 
 channel1 = client.get_channel(channelIdOld)
+
+players = []
+board = Board()
 
 
 def generateXp():
@@ -73,11 +82,13 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    # print(message)
     # if message.author.id == 430892547523608596:
     #     print(message.author)
-    #     await message.channel.send(wack(message.content))
-    # if message.author.id == 393614489649676289:
-    #     await message.channel.send(wack(message.content))
+    #     print(message.content)
+    # await message.channel.send(wack(message.content))
+    if message.author.id == 393614489649676289:
+        await message.channel.send(wack(message.content))
     if message.content.lower() == 'another day':
         another_day()
     if isBatchest(message.content):
@@ -86,7 +97,7 @@ async def on_message(message):
             await message.channel.send("<:batchest:906314613312872448> <:batchest:906314613312872448> <:batchest:906314613312872448> <:batchest:906314613312872448>")
         else:
             await message.channel.send(requestGIF("batchest"))
-    if message.content.lower() == "why is my code broken":
+    if message.content.lower() in ["why is my code broken", 'why doesnt my code work', 'my code is broken', 'my code doesnt work']:
         await message.channel.send("Its prolly written in JS")
 
     if message.author.bot:
@@ -415,7 +426,7 @@ async def rich(ctx):
 @client.command(name='urban', help="Shows definition of a word in the urban dictionary")
 async def urban(ctx, *names):
     embd = discord.Embed(
-        title=f'{names}:', description=urbanFind(' '.join(names))['definition'])
+        title=f'{" ".join(names)}:', description=urbanFind(' '.join(names))['definition'])
     await ctx.send(embed=embd)
 
 
@@ -482,6 +493,9 @@ async def wordle(ctx, guess):
     if len(guess) != 5:
         await ctx.reply(embed=discord.Embed(
             title=f'Bossman', description='The word must be 5 letters long'))
+    elif guess not in words.words():
+        await ctx.reply(embed=discord.Embed(
+            title=f'Bossman', description='The word needs to actually be a word'))
     else:
         number = get_current_player_wordle()
         if get_word_wordle() == "":
@@ -517,4 +531,15 @@ async def wordle(ctx, guess):
         print(word)
 
 
-client.run(tokenNew)
+@client.command(name='xo', aliases=['tictactoe', 'ttt'],  help='TicTacToe')
+async def xo(ctx, player, guess):
+    users = ctx.message.mentions
+    players[1] = ctx.message.author.id
+    if players[2] == '':
+        players[2] = users[0].id
+
+    if board.hasTie():
+        await ctx.reply(embed=discord.Embed(title='Tie Game', description="The game ended in a draw"))
+    elif board.hasWin()[0]:
+        pass
+    move = board.move(guess)
