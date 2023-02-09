@@ -99,14 +99,3 @@ class Board():
                           '4': '  ', '5': '  ', '6': '  ',
                           '1': '  ', '2': '  ', '3': '  '}
             return f'The winner is {winner[1]}'
-
-
-def game():
-    board = Board()
-    print('Game starts \n')
-    print(board)
-    while board.hasWin()[0] == False and board.hasTie() == False:
-        turn = input('Please input the square you with to play at: ')
-        print('\n')
-        board.move(turn)
-        print(board)

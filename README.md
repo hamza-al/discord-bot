@@ -75,6 +75,7 @@ Current bot commands are :
   sell     Sells a given amount of items
   stash    Shows user's hidden stash of money
   steal    Robs the mentioned users balance
+  Donate   Donates a set amount of money to another user
   store    Sends a given amount of items to the user's vault
   unvault  Returns given amount of vaulted items to the user's inventory
   urban    Shows definition of a word in the urban dictionary
@@ -83,4 +84,5 @@ Current bot commands are :
   league   Retrieves information about any specified League of Legends champion
   wordle   Simulated a wordle
   help     Displays available commands.
+  xo       TicTacToe on discord
    ```

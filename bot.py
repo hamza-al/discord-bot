@@ -531,7 +531,7 @@ players = []
 board = Board()
 
 
-@client.command(name='xo', aliases=['tictactoe', 'ttt'],  help='TicTacToe')
+@client.command(name='xo', aliases=['tictactoe', 'ttt'],  help='TicTacToe on discord')
 async def xo(ctx, *guess):
     global players
     global board
