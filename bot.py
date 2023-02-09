@@ -61,9 +61,6 @@ client = commands.Bot(command_prefix='>',
 
 channel1 = client.get_channel(channelIdOld)
 
-players = []
-board = Board()
-
 
 def generateXp():
     return 1
@@ -530,16 +527,48 @@ async def wordle(ctx, guess):
 
         print(word)
 
+players = []
+board = Board()
+
 
 @client.command(name='xo', aliases=['tictactoe', 'ttt'],  help='TicTacToe')
-async def xo(ctx, player, guess):
-    users = ctx.message.mentions
-    players[1] = ctx.message.author.id
-    if players[2] == '':
-        players[2] = users[0].id
+async def xo(ctx, *guess):
+    global players
+    global board
+    if players == [] and len(guess) != 2:
+        await ctx.reply(embed=discord.Embed(title='Invalid command', description="Please tag someon you wish to play against followed by your initial play (ex. >xo @JohnDoe b3)"))
+        return
+    elif players != [] and ctx.message.author.id not in players:
+        await ctx.reply(embed=discord.Embed(title='Wait your turn', description=f"A match is currently ongoing between { client.fetch_user(players[0])} and { client.fetch_user(players[0])}"))
+        return
+    elif players != [] and len(guess) != 1:
+        await ctx.reply(embed=discord.Embed(title='Invalid command', description="Please enter the position you wish to play at (ex. >xo b3)"))
+        return
+    else:
+        if players == []:
+            users = ctx.message.mentions
+            if len(users) == 0:
+                await ctx.reply(embed=discord.Embed(title='Invalid command', description="Please tag someon you wish to play against followed by your initial play (ex. >xo @JohnDoe b3)"))
+                return
 
-    if board.hasTie():
-        await ctx.reply(embed=discord.Embed(title='Tie Game', description="The game ended in a draw"))
-    elif board.hasWin()[0]:
-        pass
-    move = board.move(guess)
+            players.append(ctx.message.author.id)
+            players.append(users[0].id)
+
+        else:
+            if len(guess) == 2:
+                board.move(guess[1])
+            else:
+                board.move(guess[0])
+
+            await ctx.reply(f'`{str(board)}`')
+            if board.hasTie():
+                await ctx.reply(embed=discord.Embed(title='Tie Game', description="The game ended in a draw"))
+                players = []
+            elif board.hasWin()[0]:
+                if board.hasWin()[1] == 'X':
+                    winner = await client.fetch_user(players[0])
+                else:
+                    winner = await client.fetch_user(players[1])
+                await ctx.reply(embed=discord.Embed(title='WOO', description=f"The winner is {winner}!"))
+                players = []
+client.run(tokenNew)

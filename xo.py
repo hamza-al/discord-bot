@@ -91,11 +91,14 @@ class Board():
             return 'Game is a Tie'
 
         else:
+            self.isX = True
+            winner = self.hasWin()
+            print(f'The winner is {self.hasWin()[1]}')
+
             self.board = {'7': '  ', '8': '  ', '9': '  ',
                           '4': '  ', '5': '  ', '6': '  ',
                           '1': '  ', '2': '  ', '3': '  '}
-            self.isX = True
-            return f'The winner is {self.hasWin()[1]}'
+            return f'The winner is {winner[1]}'
 
 
 def game():
@@ -107,7 +110,3 @@ def game():
         print('\n')
         board.move(turn)
         print(board)
-
-
-board = Board()
-board.play()
